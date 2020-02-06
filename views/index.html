@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Hello World!</h1>
+  <button id="open">
+    Click me to open connection
+  </button>
+  <script type="text/javascript">
+    var socket = io.connect('http://localhost:8080');
+    console.log(io)
+    socket.on('connect', function(data) {
+        socket.emit('join', 'Hello World from client');
+    });
+
+    const btn = document.getElementById('open');
+    btn.addEventListener('click', () => {
+      console.log(this.target)
+    })
+  </script>
+</body>
+</html>
