@@ -1,8 +1,10 @@
 # multiplayer_master
 
-This is the master controller for the multiplayer backend.
+This is the api and master controller for the multiplayer backend.
 
-The main purpose of this server is to track the status' of the slave servers (game lobbies), communicate and assign them with the client side instances.
+This server tracks the status of the slave servers (game lobbies), communicates and assigns them with the client side instances.
+
+For the client app check out: https://github.com/fvaldez421/multiplayer_client
 
 ### To install and run: 
 - Copy the git remote above under *clone or download* dropdown
