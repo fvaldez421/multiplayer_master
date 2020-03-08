@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import path from 'path';
 import routes from '../routes';
-
+import cors from 'cors';
 
 const app = express();
 const server = http.createServer(app);
@@ -26,6 +26,12 @@ app.get('/index.html', (req, res) => {
   res.sendFile(path.join(__dirname + '/../views/index.html'))
 })
 
+// handle cors
+// app.use(cors())
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", '*')
+  next();
+})
 
 // implement our routes
 app.use('/', routes);
