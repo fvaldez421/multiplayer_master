@@ -1,13 +1,16 @@
 import http from 'http';
 import express from 'express';
+import socketIo from 'socket.io';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import path from 'path';
-import routes from '../routes';
-import cors from 'cors';
+import { socketHandler, routes } from '../routes';
+// import cors from 'cors';
 
 const app = express();
 const server = http.createServer(app);
+const io = socketIo(server);
+socketHandler.setIo(io);
 
 // encode and parse our request data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,6 +38,5 @@ app.use(function(req, res, next) {
 
 // implement our routes
 app.use('/', routes);
-
 
 export default server;
