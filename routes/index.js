@@ -21,5 +21,5 @@ socketHandler.use([
   })
 ])
 
-export { apiRouter as router, socketHandler };
+export { apiRouter as routes, socketHandler };
 export default apiRouter;

@@ -65,6 +65,8 @@ class SocketHandler {
    * @param {Object} socket 
    */
   _setHandlers(socket) {
+    const { handshake: { url, headers: { host } = {} } = {} } = socket;
+    console.log('connection made:', { host, url })
     this.handlers.forEach(({ path, fn }) => {
       socket.on(path, data => {
         fn(data, this.io, socket)
