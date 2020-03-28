@@ -15,7 +15,7 @@ class SocketHandler {
     this._setHandlers = this._setHandlers.bind(this);
 
     this.handleEvent = this.handleEvent.bind(this);
-    this.handle = this.handle.bind(this);
+    this.makeHandler = this.makeHandler.bind(this);
     this.use = this.use.bind(this);
   }
   /** 
@@ -38,7 +38,7 @@ class SocketHandler {
    * @param {String} eventType
    * @param {Function} fn
   */
-  handle(eventType, handler) {
+  makeHandler(eventType, handler) {
     return { eventType, handler };
   }
   /** handles a single event
@@ -46,7 +46,7 @@ class SocketHandler {
    * @param {Function} fn
   */
   handleEvent(eventType, handler) {
-    this.use([this.handle(eventType, handler)])
+    this.use([this.makeHandler(eventType, handler)])
   }
   /**
    * Sets the io value and initializes the Handler
