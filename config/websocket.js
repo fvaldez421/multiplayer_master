@@ -15,7 +15,7 @@ class SocketHandler {
     this._setHandlers = this._setHandlers.bind(this);
 
     this.handleEvent = this.handleEvent.bind(this);
-    this.handler = this.handler.bind(this);
+    this.handle = this.handle.bind(this);
     this.use = this.use.bind(this);
   }
   /** 
@@ -28,17 +28,17 @@ class SocketHandler {
       handlers = prefix;
       prefix = '';
     }
-    handlers = handlers.map(({ eventType, handler }) => ({
-      path: `${prefix}/${eventType}`,
+    const parsedHandlers = handlers.flat().map(({ eventType, handler }) => ({
+      path: prefix ? `${prefix}/${eventType}` : eventType,
       fn: handler
     }));
-    this.handlers = this.handlers.concat(handlers);
+    this.handlers = this.handlers.concat(parsedHandlers);
   }
   /** returns an event handler
    * @param {String} eventType
    * @param {Function} fn
   */
-  handler(eventType, handler) {
+  handle(eventType, handler) {
     return { eventType, handler };
   }
   /** handles a single event
@@ -46,7 +46,7 @@ class SocketHandler {
    * @param {Function} fn
   */
   handleEvent(eventType, handler) {
-    this.use([this.handler(eventType, handler)])
+    this.use([this.handle(eventType, handler)])
   }
   /**
    * Sets the io value and initializes the Handler
@@ -67,18 +67,18 @@ class SocketHandler {
   _setHandlers(socket) {
     const { handshake: { url, headers: { host } = {} } = {} } = socket;
     console.log('connection made:', { host, url })
-    this.handlers.forEach(({ path, fn }) => {
-      socket.on(path, data => {
+    this.handlers.forEach(({ path, fn }) =>
+      socket.on(path, data =>
         fn(data, this.io, socket)
-      });
-    });
+      )
+    );
   }
 }
 
 
 const sockets = {
   Handler: function (options) {
-    console.log('initializing socket router:');
+    console.log('initializing socket handlers:');
     return new SocketHandler(options);
   }
 }

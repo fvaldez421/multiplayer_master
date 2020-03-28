@@ -1,6 +1,7 @@
 import express from 'express';
-import lobbyRoutes from './api/lobbies';
 import sockets from '../config/websocket';
+import lobbyRoutes from './api/lobbies';
+import clientHandlers from './handlers/client';
 
 
 const apiRouter = express.Router();
@@ -9,17 +10,18 @@ const socketHandler = sockets.Handler();
 // test route
 apiRouter.get('', (req, res) => res.json({ message: 'Server is live!' }));
 
-// list all other routes
+// client api routes
 apiRouter.use('/api', [
   lobbyRoutes(apiRouter)
 ]);
 
-
+// client socket handlers
 socketHandler.use([
-  socketHandler.handler('join', (data, io, socket) => {
-    io.sockets.emit('/lobbies-update', 'lobbies are up')
-  })
+  clientHandlers(socketHandler)
 ])
 
-export { apiRouter as routes, socketHandler };
-export default apiRouter;
+export {
+  socketHandler,
+  apiRouter as routes,
+  apiRouter as default
+};

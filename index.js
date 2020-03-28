@@ -1,4 +1,4 @@
-import server, { server as mainServer, sockets } from './config/server';
+import server from './config/server';
 // database lines below will be implemented when set up
 // import './config/mongoose';
 
@@ -16,3 +16,4 @@ server.listen(PORT, () => {
   console.log(`🌎 ===> Server listening on port ${PORT}!`);
 });
 
+export { server, socketHandler } from './config/server';

@@ -14,11 +14,12 @@
   <script type="text/javascript">
     var socket = io.connect('http://localhost:8080');
     socket.on('connect', function (data) {
-      socket.emit('/join', 'Hello World from client');
+      socket.emit('join', 'Hello World from client');
     });
 
-    socket.on('/lobbies-update', data => {
+    socket.on('lobbies-update', data => {
       console.log('on lobbies update:', { data })
+      socket.emit('game-update', { gameStatus: !data.gameStatus })
     })
   </script>
 </body>

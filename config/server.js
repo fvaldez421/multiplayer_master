@@ -31,7 +31,7 @@ app.get('/index.html', (req, res) => {
 
 // handle cors
 // app.use(cors())
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", '*')
   next();
 })
@@ -39,4 +39,8 @@ app.use(function(req, res, next) {
 // implement our routes
 app.use('/', routes);
 
-export default server;
+export {
+  socketHandler,
+  server,
+  server as default
+};
