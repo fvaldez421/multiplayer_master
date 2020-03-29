@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 import http from 'http';
 import express from 'express';
 import socketIo from 'socket.io';
@@ -7,6 +8,7 @@ import path from 'path';
 import { socketHandler, routes } from '../routes';
 // import cors from 'cors';
 
+dotenv.config()
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, { path: '/sockets' });
