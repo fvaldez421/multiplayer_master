@@ -1,20 +1,14 @@
 // import and use route helpers here
-import { socketHandler } from '../../index'
+import { LobbyController } from '../../controllers';
 
 const routes = router => {
   router.route('/lobbies')
-    .get((req, res) => {
-      res.json({ message: 'Lobbies is live!' });
-
-      let status = true;
-      // socketHandler.io.sockets.emit('lobbies-update', { gameStatus: status })
-
-      // the logic below works!
-      setInterval(() => {
-        socketHandler.io.sockets.emit('lobbies-update', { gameStatus: status })
-        status = !status
-      }, 1500);
-    })
+    .get(LobbyController.find)
+    .post(LobbyController.insert);
+  router.route('/lobbies/:_id')
+    .get(LobbyController.findById)
+    .put(LobbyController.update)
+    .delete(LobbyController.delete);
   return router;
 }
 
