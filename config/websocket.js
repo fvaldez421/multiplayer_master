@@ -77,6 +77,7 @@ class SocketHandler {
 
 
 const sockets = {
+  /** Returns a base SocketHandler Constructor */
   Handler: function (options) {
     console.log('initializing socket handlers:');
     return new SocketHandler(options);

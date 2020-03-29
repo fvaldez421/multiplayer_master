@@ -9,7 +9,7 @@ import { socketHandler, routes } from '../routes';
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, { path: '/sockets' });
 socketHandler.setIo(io);
 
 // encode and parse our request data
