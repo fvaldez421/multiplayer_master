@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
+import bluebird from 'bluebird'
 
-
-const localMongoUri = 'mongodb://localhost:27017/test-collection';
+const localMongoUri = 'mongodb://localhost:27017/end_of_time';
 
 class Connection {
   constructor() {
     const url = process.env.MONGODB_URI || localMongoUri;
-    mongoose.Promise = global.Promise;
-    mongoose.connect(url);
+    mongoose.Promise = bluebird;
+    mongoose.connect(url, { useNewUrlParser: true });
     console.log('Established new connection with mongodb:', url)
   }
 }
