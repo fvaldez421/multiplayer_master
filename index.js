@@ -1,6 +1,6 @@
 import server from './config/server';
 // database lines below will be implemented when set up
-// import './config/mongoose';
+import './config/mongoose';
 
 
 const PORT = process.env.port || 8080;
