@@ -8,13 +8,17 @@ const { MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_URI } = process.env
 class Connection {
   constructor() {
     const url = MONGODB_URI || localMongoUri;
-    mongoose.Promise = bluebird;
-    mongoose.connect(url, {
-      user: MONGODB_USERNAME,
-      pass: MONGODB_PASSWORD,
-      useNewUrlParser: true
-    });
-    console.log('Established new connection with mongodb:', url)
+    try {
+      mongoose.Promise = bluebird;
+      mongoose.connect(url, {
+        user: MONGODB_USERNAME,
+        pass: MONGODB_PASSWORD,
+        useNewUrlParser: true
+      });
+      console.log('Established new connection with mongodb:', url)
+    } catch (e) {
+      console.error(e)
+    }
   }
 }
 
