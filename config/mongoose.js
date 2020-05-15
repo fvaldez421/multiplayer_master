@@ -13,7 +13,8 @@ class Connection {
       mongoose.connect(url, {
         user: MONGODB_USERNAME,
         pass: MONGODB_PASSWORD,
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useUnifiedTopology: true
       });
       console.log('Established new connection with mongodb:', url)
     } catch (e) {

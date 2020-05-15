@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-
+/**
+ * Base service to be used for data interaction
+ */
 class BaseService {
   constructor(model) {
     this.model = model;

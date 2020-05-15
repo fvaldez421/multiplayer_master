@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import path from 'path';
 import { socketHandler, routes } from '../routes';
-// import cors from 'cors';
+import cors from 'cors';
 
 dotenv.config()
 const app = express();
@@ -21,18 +21,18 @@ app.use(bodyParser.json());
 app.use(morgan('combined'));
 
 /**
- * The lines 23-27 below are soley used for testing socket.io while serving 
+ * The lines below are soley used for testing socket.io while serving 
  * static files from `views`. They will likely be removed after v1 of the 
  * client side React app is up and has support for websockets
  */
-app.use(express.static(__dirname + '/../node_modules'));
-app.use(express.static(path.join(__dirname, 'views')));
-app.get('/index.html', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../views/index.html'))
-})
+// app.use(express.static(__dirname + '/../node_modules'));
+// app.use(express.static(path.join(__dirname, 'views')));
+// app.get('/index.html', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/../views/index.html'))
+// })
 
 // handle cors
-// app.use(cors())
+app.use(cors())
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", '*')
   next();
